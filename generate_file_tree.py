@@ -88,31 +88,35 @@ end_time : int
 verbose : bool
     Be loud about what to do.
     """
-    #for i in xrange(files):
-    #    random_string()
+    
     def walk_function(arg, dirname, fnames):
         """
-Function used in os.path.walk
+    Function used in os.path.walk
 
-Following the logic of Python scoping, this is a local function,
-only visible inside of populate_tree.
-This function should be passed to os.path.walk.
+    Following the logic of Python scoping, this is a local function,
+    only visible inside of populate_tree.
+    This function should be passed to os.path.walk.
         
-Parameters
-----------
-arg : obj
-    Arbitrary argument specified at initialization.
-dirname : str
-    Name of a directory in file tree (changes with each call.
-fnames : list
-    List of filenames in file tree.
+    Parameters
+    ----------
+    arg : obj
+        Arbitrary argument specified at initialization.
+    dirname : str
+        Name of a directory in file tree (changes with each call.
+    fnames : list
+        List of filenames in file tree.
         """
         # Fill in code for walk function
+        for f in fnames:
+            cur_dir = dirname + "/" +random_string(6)
+            print_verbose (cur_dir)
+            with open(cur_dir, "w") as f:
+                f.write(random_string(size*1024))
 
     os.path.walk(target, walk_function, None)
 
 
-# If-test to ensure code only executed if ran as stand-alone app.
+# If-test to ensure code only executed if ran as stand-alone app
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Create a random file tree")
@@ -133,7 +137,7 @@ if __name__ == "__main__":
     
 
     generate_tree(args.target, int(args.folders or 3) , int(args.depth or 5), args.verbose)
-    populate_tree(args.target, int(args.files), int(args.size or 800), 
+    populate_tree(args.target, int(args.files or 5), int(args.size or 800), 
                   int(args.start or 1388534400),int(args.end or 1406851201000), args.verbose)
 
 

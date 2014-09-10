@@ -31,3 +31,8 @@
 ####
 dummy_file_tree.tar
 test/*
+*#*
+*.log
+*.aux
+_*
+report.*

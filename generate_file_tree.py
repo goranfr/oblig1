@@ -8,14 +8,6 @@ import argparse # parse command-line arguments
 legal_chars = "abcdefghijklmnopqrstuvwxyz"+\
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ"+"0123456789_"
 
-verbose_print = False
-
-
-
-def print_verbose(text):
-    if verbose_print:
-        print(text)
-
 def random_string(length=6, prefix="", legal_chars=legal_chars):
     """
 Create a random string of text.
@@ -61,7 +53,8 @@ verbose : bool
             new_dir = target + random_string(6) + "/"
             if not os.path.exists(new_dir):
                 os.makedirs(new_dir)
-                print_verbose("Creating directory: " + new_dir)
+                if verbose:
+                    print("Creating directory: " + new_dir)
             generate_tree(new_dir, dirs, rec_depth-1, verbose)
     return
     
@@ -107,12 +100,13 @@ verbose : bool
         List of filenames in file tree.
         """
         # Fill in code for walk function
-        for f in fnames:
-            cur_dir = dirname + "/" +random_string(6)
-            print_verbose (cur_dir)
-            with open(cur_dir, "w") as f:
-                f.write(random_string(size*1024))
-
+        for i in xrange(random.randint(0, files+1)+1):
+            cur_file = dirname + "/" +random_string(6)
+            if verbose:
+                print ("Creating file: " + cur_file)
+            with open(cur_file, "w") as f:
+                f.write(random_string(random.randint(1, size+1)*1024))
+                os.utime(cur_file, (random.randint(start_time, end_time+1), random.randint(start_time, end_time+1)))
     os.path.walk(target, walk_function, None)
 
 
@@ -130,11 +124,9 @@ if __name__ == "__main__":
     parser.add_argument("--seed", help="seed for the RNG")
     parser.add_argument("-v", "--verbose", action="store_true", help="print info")
     args = parser.parse_args()
-    if args.verbose:
-        verbose_print = True
+
     # Fix the random seed (if not None):
-    random.seed(args.seed)
-    
+    random.seed(args.seed)    
 
     generate_tree(args.target, int(args.folders or 3) , int(args.depth or 5), args.verbose)
     populate_tree(args.target, int(args.files or 5), int(args.size or 800), 

@@ -1,3 +1,8 @@
+if [ "$#" -ne 2 ]; then
+  echo "Usage: $0 dir size (in KB)"
+  exit
+fi
+
 echo Deleting...
 count=0
 for f in $(find $1)

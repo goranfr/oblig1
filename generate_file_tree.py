@@ -24,7 +24,7 @@ legal_chars : string
 
 Returns
 -------
-rnd_str : str
+res : str
     """
     chars = []
     for i in xrange(length):
@@ -33,7 +33,7 @@ rnd_str : str
     return res
 
 
-def generate_tree(target, dirs=3, rec_depth=2, verbose=False):
+def generate_tree(target, dirs, rec_depth, verbose):
     """
 Genereate a random folder structure with random names.
 
@@ -56,11 +56,10 @@ verbose : bool
                 if verbose:
                     print("Creating directory: " + new_dir)
             generate_tree(new_dir, dirs, rec_depth-1, verbose)
-    return
     
 
-def populate_tree(target, files=5, size=800, start_time=1388534400,
-        end_time=1406851201000, verbose=False):
+def populate_tree(target, files, size, start_time,
+        end_time, verbose):
     """
 Generate random files with random content.
 
@@ -106,9 +105,10 @@ verbose : bool
                 print ("Creating file: " + cur_file)
             with open(cur_file, "w") as f:
                 f.write(random_string(random.randint(1, size+1)*1024))
-                os.utime(cur_file, (random.randint(start_time, end_time+1), random.randint(start_time, end_time+1)))
+                os.utime(cur_file, 
+                        (random.randint(start_time, end_time+1),
+                         random.randint(start_time, end_time+1)))
     os.path.walk(target, walk_function, None)
-
 
 # If-test to ensure code only executed if ran as stand-alone app
 if __name__ == "__main__":

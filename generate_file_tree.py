@@ -25,6 +25,12 @@ legal_chars : string
 Returns
 -------
 res : str
+
+Example
+-------
+>>> random.seed(5)
+>>> print(random_string(30, "ef2x_", legal_chars))
+ef2x_NUY7U6bD7O4hDpIKanr5WkYiMha2nn
     """
     chars = []
     for i in xrange(length):

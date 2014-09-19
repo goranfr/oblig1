@@ -2,7 +2,7 @@
 all: clean python
 
 python: generate_file_tree.py
-	./generate_file_tree.py -s 1 -v -d 2 test/ 2 2
+	./generate_file_tree.py -s 199 -v -d 5 test/ 4 4
 
 .PHONY: all clean
 

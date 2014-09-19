@@ -55,7 +55,7 @@ verbose : bool
     Be loud about what to do.
     """
     if rec_depth > 0:
-        for i in xrange(random.randint(0, dirs+1)):
+        for i in xrange(random.randint(0, dirs)):
             new_dir = target + random_string(6) + "/"
             if not os.path.exists(new_dir):
                 os.makedirs(new_dir)
@@ -105,7 +105,7 @@ verbose : bool
         List of filenames in file tree.
         """
         # Fill in code for walk function
-        for i in xrange(random.randint(0, files+1)+1):
+        for i in xrange(random.randint(0, files)):
             cur_file = dirname + "/" +random_string(6)
             if verbose:
                 print ("Creating file: " + cur_file)
@@ -132,11 +132,37 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Fix the random seed (if not None):
-    random.seed(args.seed)    
+    random.seed(args.seed)
+    
+    if args.folders:
+        args.folders = int(args.folders)
+    else:
+        args.folders = 3
+    if args.files:
+        args.files = int(args.files)
+    else:
+        args.files = 3
+    if args.depth:
+        args.depth = int(args.depth)
+    else:
+        args.depth = 5
+    if args.start:
+        args.start = int(args.start)
+    else:
+        args.start = 1388534400
+    if args.end:
+        args.end = int(args.end)
+    else:
+        args.end = 1406851201000
+    if args.size:
+        args.size = int(args.size)
+    else:
+        args.size = 800 
+    
 
-    generate_tree(args.target, int(args.folders or 3) , int(args.depth or 5), args.verbose)
-    populate_tree(args.target, int(args.files or 5), int(args.size or 800), 
-                  int(args.start or 1388534400),int(args.end or 1406851201000), args.verbose)
+    generate_tree(args.target, args.folders, args.depth, args.verbose)
+    populate_tree(args.target, args.files, args.size, 
+                  args.start, args.end, args.verbose)
 
 
 

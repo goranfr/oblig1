@@ -135,32 +135,13 @@ if __name__ == "__main__":
     # Fix the random seed (if not None):
     random.seed(args.seed)
     
-    if args.folders:
-        args.folders = int(args.folders)
-    else:
-        args.folders = 3
-    if args.files:
-        args.files = int(args.files)
-    else:
-        args.files = 3
-    if args.depth:
-        args.depth = int(args.depth)
-    else:
-        args.depth = 5
-    if args.start:
-        args.start = int(args.start)
-    else:
-        args.start = 1388534400
-    if args.end:
-        args.end = int(args.end)
-    else:
-        args.end = 1406851201000
-    if args.size:
-        args.size = int(args.size)
-    else:
-        args.size = 800 
+    args.folders = int(args.folders or 3)
+    args.files = int(args.files or 3)
+    args.depth = int(args.depth or 5)
+    args.start = int(args.start or 1388534400)
+    args.end = int(args.end or 1406851201000)
+    args.size = int(args.size or 800)
     
-
     generate_tree(args.target, args.folders, args.depth, args.verbose)
     populate_tree(args.target, args.files, args.size, 
                   args.start, args.end, args.verbose)

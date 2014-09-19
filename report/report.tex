@@ -75,6 +75,29 @@ Siden vi allerede har et program som sorterer linjer i filer (\emph{sort}), send
 bare filnavnene til denne.
 \section{Python}
 
+Bruk
+\begin{Verbatim}
+\end{Verbatim}
+  ./generate_file_tree.py [-sdSev] [--seed] target folders files
+\begin{Verbatim}
+\end{Verbatim}
+Argumenter
+\begin{Verbatim}
+  -s, --size (int):  maks filstørrelse i KB
+  -d, --depth (int): maks katalogdybde
+  -S, --start (int): mtime/atime start
+  -e, --end (int):   mtime/atime end
+  -v, --verbose:     print kataloger/filer som opprettes
+  --seed (int):      seed for RNG
+  target (int):      rotkatalog for filtreet
+  folders (int):     maks antall underkataloger i hver katalog
+  files (int):       maks antall filer i hver katalog  
+\end{Verbatim}
+Brukseksempel:
+\begin{Verbatim}
+./generate_file_tree.py -s 199 -v -d 5 tree/ 4 4
+\end{Verbatim}
+
 \subsection{random\_string()}
 \begin{Verbatim}
 random_string(length, prefix, legal_chars)

@@ -5,7 +5,7 @@ fi
 
 echo Deleting...
 count=0
-for f in $(find $1)
+for f in $(find $1 -type f)
 do
   size=$(stat -c%s "$f")
   if [ "$size" -gt $(($2*1000)) ]; then

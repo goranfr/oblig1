@@ -110,7 +110,8 @@ verbose : bool
             if verbose:
                 print ("Creating file: " + cur_file)
             with open(cur_file, "w") as f:
-                f.write(random_string(random.randint(1, size+1)*1024))
+                for j in xrange (random.randint(1, size+1)):
+                    f.write(random_string(1024))
                 os.utime(cur_file, 
                         (random.randint(start_time, end_time+1),
                          random.randint(start_time, end_time+1)))

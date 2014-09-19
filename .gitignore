@@ -35,4 +35,7 @@ test/*
 *.log
 *.aux
 _*
-report.*
+report/*
+!report/makefile
+!report/report.tex
+!report/report.pdf

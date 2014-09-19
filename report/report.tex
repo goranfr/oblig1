@@ -1,0 +1,131 @@
+\documentclass{article}
+
+% Package Pygments for fancy typesetting of code
+\usepackage{fancyvrb}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+
+% Hyperlinks in PDF: \href{url}{linktext}
+\definecolor{linkcolor}{rgb}{0,0,0.4}
+\usepackage[%
+    colorlinks=true,
+    linkcolor=linkcolor,
+    urlcolor=linkcolor,
+    citecolor=black,
+    filecolor=black,
+]{hyperref}
+
+\begin{document}
+
+\title{INF3331 - Oblig1}
+
+\author{Gøran Frost}
+\date{\today}
+
+% Generate title, author, and date
+\maketitle
+
+\section{Bash}
+
+\label{sec:calc}
+
+\subsection{find\_new\_files.sh}
+\label{sec:add}
+\begin{quote}
+``List opp alle filer som er modifisert de siste n dagene. La utskriften inkludere og være sortet på filstørrelse.''
+\end{quote}
+\begin{Verbatim}
+./find_new_files.sh dir n
+\end{Verbatim}
+Scriptet find\_new\_files.sh leter igjennom \emph{dir} etter filer (\emph{find} som har blitt endret de siste \emph{n} dager ( \emph{ctime}, og så for hver slik fil skriver ut diskforbruket (\emph{du} til filen og filnavnet.
+
+\label{sec:add:eq}
+\subsection{find\_word.sh}
+\begin{quote}
+``Find alle filer som inneholder et gitt ord. Merk at vi snakker om på innsiden av
+filen, ikke filnavnet.''
+\end{quote}
+\begin{Verbatim}
+./find_word.sh dir word
+\end{Verbatim}
+Scriptet leter igjennom \emph{dir} etter alle filer og mapper (\emph{find}). Så går vi igjennom alle resultatene, og om de er filer sjekker vi om de inneholder \emph{word} ved hjelp av \emph{grep}. Hvis filen inneholder \emph{word}, skriver vi ut filnavnet. 
+
+\subsection{sized\_delete.sh}
+\begin{quote}
+``Slett alle filer i filtreet med størrelse større enn en gitt verdi. Størrelsen er gitt
+i kilobyte. Print ut navnene på filene som slettes.''
+\end{quote}
+\begin{Verbatim}
+./sized_delete.sh dir size
+\end{Verbatim}
+Her går vi også igjennom alle filene i \emph{dir} (\emph{find -type f}, og sjekker enkelt ved hjelp
+ av \emph{stat} størrelsen på filen. Dette sammenlignes med $\emph{size}*1000$ 
+(for å gjøre om fra KB), og så sletter vi filen om den er større enn \emph{size} KB.  
+\subsection{sort\_file.sh}
+\label{sec:py}
+\begin{quote}
+``Sorter linjene i en fil og lagre dem i en ny fil.''
+\end{quote}
+\begin{Verbatim}
+./sort_file file1 file2
+\end{Verbatim}
+Siden vi allerede har et program som sorterer linjer i filer (\emph{sort}), sender vi 
+bare filnavnene til denne.
+\section{Python}
+
+\subsection{random\_string()}
+\begin{Verbatim}
+random_string(length, prefix, legal_chars)
+
+parametere 
+  length : int
+    lengde på returnert streng, minus prefix. default: 6
+  prefix : string
+    prefix for strengen. default = ""
+  legal_chars : string
+    streng av tilatte tegn. default = "[\w]"
+
+returnerer
+  res : string
+\end{Verbatim}
+
+\subsection{generate\_tree()}
+\begin{Verbatim}
+generate_tree(target, dirs, rec_depth, verbose)
+
+parametere 
+  target : string
+    path til rotkatalogen til treet
+  dirs : int
+    maksimum antall underkataloger per katalog
+  rec_depth : int
+    maks dybde fra rotkatalogen
+  verbose : bool
+    hvis True, print alle kataloger som opprettes
+\end{Verbatim}
+
+
+\subsection{populate\_tree()}
+\begin{Verbatim}
+populate_tree(target, files, size, start_time, end_time, verbose)
+
+parametere 
+  target : string
+    path til katalogen som filer skal lages i
+  files : int
+    maks antall filer i denne katalogen
+  size : int
+    maks størrelse på hver fil, i KB
+  start_time : int
+    minste mulige verdi for atime / mtime på filen (unix-format)
+  end_time : int
+    største mulige verdi for atime / mtime på filen (unix-format)
+  verbose : bool
+    hvis True, print alle filer som opprettes
+\end{Verbatim}
+
+\subsection{Argument Parsing}
+argparse-modulen brukes for å håndtere alle argumenter.  
+\end{document}
